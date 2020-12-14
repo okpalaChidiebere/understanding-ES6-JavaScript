@@ -161,3 +161,26 @@ const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 
 for(let day of days){
     console.log(day.charAt(0).toUpperCase() + day.slice(1)) //capitalizes the first letter of the day
 }
+
+
+
+/**Understanding Spread... Operator
+ * 
+ * gives you the ability to expand, or spread, iterable objects into multiple elements.
+ */
+
+
+const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
+console.log(primes); // [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+console.log(...primes); // 2 3 5 7 11 13 17 19 23 29
+
+//One example of when the spread operator can be useful is when combining arrays or objects.
+const fruits = ["apples", "bananas", "pears"]
+const vegetables = ["corn", "potatoes", "carrots"]
+console.log(fruits.concat(vegetables)) //["apples", "bananas", "pears", "corn", "potatoes", "carrots"]
+
+//using spread operator
+console.log([...fruits, ...vegetables]) //["apples", "bananas", "pears", "corn", "potatoes", "carrots"]
+console.log([fruits, ...vegetables]) //[ [ 'apples', 'bananas', 'pears' ], 'corn', 'potatoes', 'carrots' ]
+
+/**End Understanding spread Operator */
