@@ -55,3 +55,54 @@ ${student.guardian}`
 console.log(noteES6)  //noteES6 will have thesame output as note
 
 /**End understanding Template literals */
+
+
+/**Understanding Destructuring
+ * 
+ * Destructuring borrows inspiration from languages like Perl and Python by allowing you to specify the elements you want to extract from an array or object on the left side of an assignment. 
+ * It sounds a little weird, but you can actually achieve the same result as before, but with much less code; 
+ */
+const point = [10, 25, -34];
+const [xDes, yDes, zDes] = point;  //using Destructing, you write less code
+console.log(xDes, yDes, zDes); //10 25 -34
+const [yDes2, zDes2] = point;
+console.log(yDes2, zDes2); //10 25
+//You can also ignore values when destructuring arrays. For example, const [x, , z] = point; ignores the y coordinate and discards it.
+
+const x = point[0]; //without Destructiing you write more lines of code
+const y = point[1];//without Destructiing you write more lines of code
+const z = point[2];//without Destructiing you write more lines of code
+console.log(x, y, z);  //10 25 -34
+
+//Destructing For objects
+const gemstone = {
+    type: 'quartz',
+    color: 'rose',
+    carat: 21.29
+};
+const {type, color, carat} = gemstone;  //thesame thing with array, but this time you use {} instead of []
+console.log(type, color, carat);  //quartz rose 21.29
+console.log(type, carat); //quartz 21.29
+
+const things = ['red', 'basketball', 'paperclip', 'green', 'computer', 'earth', 'udacity', 'blue', 'dogs'];
+const [one, , ,two, , , ,three] = things
+console.log(one, two, three) //red green blue
+
+const circle = {
+    radius: 10,
+    color: 'orange',
+    getArea: function() {
+      return Math.PI * 10 * 10;
+    },
+    getCircumference: function() {
+      return 2 * Math.PI * this.radius
+    }
+  };
+  
+  let {radius, getArea, getCircumference} = circle
+  console.log(radius, getArea, getCircumference) //10 NaN NaN
+  //Calling getArea() will return NaN. When you destructure the object and store the getArea() method into the getArea variable, it no longer has access to this in the circle object which results in an area that is NaN.
+
+  //End Destructuring
+
+
