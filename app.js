@@ -201,14 +201,19 @@ const [total, subtotal, tax, ...items] = order; //using the distruction in ES6 w
 console.log(total, subtotal, tax, items); // 198 20.17 18.67 1.5 ["cheese", "eggs", "milk", "bread", 2] so we bundled the rest of the items after 1.50 back into an array
 
 //another situation to use rest parameter is when you’re working with variadic functions. Variadic functions are functions that take an indefinite number of arguments.
-function sum(...nums) { //we can have one parameter or 1000
+function average(...nums) { //we can have one parameter or 1000
     let total = 0;  
+
+    if(nums.length === 0)
+        return total
+
     for(const num of nums) { //Remember, we use the for...of loop to loop over any type of data that is iterable. So we'll use for...of here rather than for...in.
       total += num;
     }
-    return total;
+    return total/nums.length;
 }
-console.log(sum(1, 2)) // 3
-console.log(sum(10, 36, 7, 84, 90, 110)) // 337
+console.log(average(2, 6)) // 4
+console.log(average(2, 3, 3, 5, 7, 10)) // 5
+console.log(average()); //0  if i did not add that if statement to check, i will get an error NaN
 
 /**End Understanding ...Rest */
