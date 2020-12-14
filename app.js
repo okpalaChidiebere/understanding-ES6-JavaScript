@@ -106,3 +106,40 @@ const circle = {
   //End Destructuring
 
 
+/**Object Literal Shorthand */
+//You already know this
+let firstNname = 'chidi';
+let lastName = 'okpala';
+let favNum = 2;
+
+const person = {
+    firstNname: firstNname,
+    lastName: lastName,
+    favNum: favNum
+}; //type: type, color: color, and carat:carat seem redundant
+
+//new way in ES6 to avoid redundant
+const person2 = {firstNname,lastName,favNum};
+console.log(person2); //{firstNname: "chidi", lastName: "okpala", favNum: 2}
+
+const richPerson = {
+    firstNname: firstNname,
+    calculateWorth: function() {
+        // will calculate worth of gemstone based on type, color, and carat
+    }
+};
+
+const richPerson = {
+    firstNname: firstNname,
+    calculateWorth: function() {
+        // will calculate worth of gemstone based on type, color, and carat
+    }
+}
+const richPerson2 = {
+    firstNname,
+    calculateWorth(){ //Shorthand method names in ES6 instead of having the function keyword redundant
+
+    }
+};
+/**End Object Literal Shorthand */
+
