@@ -183,4 +183,32 @@ console.log(fruits.concat(vegetables)) //["apples", "bananas", "pears", "corn", 
 console.log([...fruits, ...vegetables]) //["apples", "bananas", "pears", "corn", "potatoes", "carrots"]
 console.log([fruits, ...vegetables]) //[ [ 'apples', 'bananas', 'pears' ], 'corn', 'potatoes', 'carrots' ]
 
+const market = [...fruits, ...vegetables]; //  here we use spread... to get ["apples", "bananas", "pears", "corn", "potatoes", "carrots"]
+const [marketApple, marketBanana, marketPears, ...margetVegertables ] = market; //here we use ...rest to bundle multiple elements back to an array using the destruction syntax in ES6
+console.log(marketApple, marketBanana, marketPears, margetVegertables)  // 'apples' 'bananas' 'pears' ['corn', 'potatoes', 'carrots' ]
 /**End Understanding spread Operator */
+
+
+
+/** Understanding Rest Parameter
+ * 
+ * 
+ */
+
+//One situation to usre rest parameter is when assigning the values of an array to variables. For example, after you use spread operator to spread an array into multiple elements, you use resy to bundle multiple elements back into an array
+const order = [20.17, 18.67, 1.50, "cheese", "eggs", "milk", "bread", 2];
+const [total, subtotal, tax, ...items] = order; //using the distruction in ES6 we learned earlier
+console.log(total, subtotal, tax, items); // 198 20.17 18.67 1.5 ["cheese", "eggs", "milk", "bread", 2] so we bundled the rest of the items after 1.50 back into an array
+
+//another situation to use rest parameter is when you’re working with variadic functions. Variadic functions are functions that take an indefinite number of arguments.
+function sum(...nums) { //we can have one parameter or 1000
+    let total = 0;  
+    for(const num of nums) { //Remember, we use the for...of loop to loop over any type of data that is iterable. So we'll use for...of here rather than for...in.
+      total += num;
+    }
+    return total;
+}
+console.log(sum(1, 2)) // 3
+console.log(sum(10, 36, 7, 84, 90, 110)) // 337
+
+/**End Understanding ...Rest */
