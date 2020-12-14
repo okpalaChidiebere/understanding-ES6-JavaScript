@@ -27,4 +27,31 @@ displayPosts();
 /**End understanding let */
 
 
+/**Understanding Template Literals */
 
+const student = {
+    name: 'Richard Kalehoff',
+    guardian: 'Mr. Kalehoff'
+}
+  
+const teacher = {
+    name: 'Mrs. Wilson',
+    room: 'N231'
+}
+
+//Prior to ES6, the old way to concatenate strings together was by using the string concatenation operator ( + ) or concat() eg 
+let note = teacher.name + ',\n\n' +
+  'Please excuse ' + student.name + '.\n' +
+  'He is recovering from the flu.\n\n' +
+  'Thank you,\n' +
+  student.guardian
+
+//Template literals are essentially string literals that include embedded expressions.
+let noteES6 = `${teacher.name}
+Please excuse ${student.name}
+He is recovering from the flu.
+Thank you,
+${student.guardian}`
+console.log(noteES6)  //noteES6 will have thesame output as note
+
+/**End understanding Template literals */
