@@ -127,13 +127,6 @@ const richPerson = {
     calculateWorth: function() {
         // will calculate worth of gemstone based on type, color, and carat
     }
-};
-
-const richPerson = {
-    firstNname: firstNname,
-    calculateWorth: function() {
-        // will calculate worth of gemstone based on type, color, and carat
-    }
 }
 const richPerson2 = {
     firstNname,
@@ -143,3 +136,28 @@ const richPerson2 = {
 };
 /**End Object Literal Shorthand */
 
+/**Understanding Iteration */
+const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+//Really the biggest downside of a for loop is having to keep track of the counter and exit condition.
+for (let i = 0; i < digits.length; i++) { //you already know the regular for loop
+   // console.log(digits[i]);
+}
+
+//in ES6, the for...in loop improves upon the weaknesses of the for loop by eliminating the counting logic and exit condition.
+//While for loops certainly have an advantage when looping through arrays, some data is not structured like an array, so a for loop isn’t always an option.
+for (const index in digits) {
+  console.log(digits[index]);
+}
+
+//You write a for...of loop almost exactly like you would write a for...in loop, except you swap out in with of and you can drop the index.
+for (const digit of digits) {
+    console.log(digit); //we dont worry about the index
+}
+// TIP: It’s good practice to use plural names for objects that are collections of values. That way, when you loop over the collection, you can use the singular version of the name
+//Always use for...of because it stands out as our best option for looping!
+
+const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+for(let day of days){
+    console.log(day.charAt(0).toUpperCase() + day.slice(1)) //capitalizes the first letter of the day
+}
