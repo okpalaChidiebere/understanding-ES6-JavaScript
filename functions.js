@@ -131,3 +131,37 @@ dessert3.addScoop(); // scoop added! 1
 
 
 /**End Understanding "this" and Arrow functions */
+
+
+/** Understanding default function paramter 
+ * 
+ * using default function paramters is good because we dont have to check for a parameter whether it is passed or not(undefined).
+ * The default value assigned to the argument will be used when an argument is not defined. This applies to object, array, or a normal varible
+ * Another programming language that does this is PHP
+ * 
+ * NOTE: you are advised to use object default over array default due to the way destrunction works in this two cases
+ */
+
+const buildHouse = ({floors = 1,  color = 'red', walls = 'brick'} = {}) => `Your house has ${floors} floor(s) with ${color} ${walls} walls.`
+
+console.log(buildHouse()); // Your house has 1 floor(s) with red brick walls.  //we passed this because '= {}' at the end of the destruncted object, the method use this default empty array when no no object is passed.
+console.log(buildHouse({})); // Your house has 1 floor(s) with red brick walls.
+console.log(buildHouse({floors: 3, color: 'yellow'})); // Your house has 3 floor(s) with yellow brick walls. //destructed properly
+console.log(buildHouse({floors: 3, color: 2}));  // Your house has 3 floor(s) with 2 brick walls.
+
+
+/**Since arrays are positionally based, we have to pass undefined to "skip" over the first argument (and accept the default) to get to the second argument.
+
+Unless you've got a strong reason to use array defaults with array destructuring, we recommend going with object defaults with object destructuring! Look at the example below */
+
+//for object defaults
+/*function createSundae({scoops = 1, toppings = ['Hot Fudge']} = {}) { … }
+createSundae({toppings: ['Hot Fudge', 'Sprinkles', 'Caramel']});  // if you want to use the default value for scoops but change the toppings, then all you need to do is pass in an object with toppings
+*/
+
+//for Array defaults
+/** function createSundae([scoops = 1, toppings = ['Hot Fudge']] = []) { … }
+createSundae([undefined, ['Hot Fudge', 'Sprinkles', 'Caramel']]); //// if you want to use the default value for scoops but change the toppings, then you need to add undefined for scoops and the value for the second argument
+ * 
+ */
+
