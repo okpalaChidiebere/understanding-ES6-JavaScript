@@ -165,3 +165,42 @@ createSundae([undefined, ['Hot Fudge', 'Sprinkles', 'Caramel']]); //// if you wa
  * 
  */
 
+
+ /**Working with JavaScript Classes
+
+- class is not magic. The class keyword brings with it a lot of mental constructs from other, class-based languages. It doesn't magically add this functionality to JavaScript classes.
+- class is a mirage over prototypal inheritance. We've said this many times before, but under the hood, a JavaScript class just uses prototypal inheritance.
+- Using classes requires the use of new. When creating a new instance of a JavaScript class, the new keyword must be used
+ */
+
+/*
+function Plane(numEngines) {
+    this.numEngines = numEngines;
+    this.enginesActive = false;
+}
+  
+// methods "inherited" by all instances
+Plane.prototype.startEngines = function () {
+    console.log('starting engines...');
+    this.enginesActive = true;
+};*/
+
+//the function code above is thesame as the class code below. Just that in ES5 you have had to write the code above to create 'class'
+class Plane {
+    constructor(numEngines) {
+      this.numEngines = numEngines;
+      this.enginesActive = false;
+    }
+  
+    startEngines() {
+      console.log('starting engines…');
+      this.enginesActive = true;
+    }
+}
+
+console.log(typeof Plane) // function
+
+
+//FYI: Javascript is not a class baded language. It uses functions to create objects and links objects together throgh prototypal inheriance
+//Just because ES6 provides us with new keyworkds like class, constructor, super, static, and extends does not mean the way the language entirely works has changed.
+//We just have have a new cleaner way to write functionality using the new keywords
