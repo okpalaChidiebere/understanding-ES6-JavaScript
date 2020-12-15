@@ -67,3 +67,67 @@ const crazyColors = colors.map( color => {
 const crazyColors2 = colors.map( color => color.split('').reverse().join('') + '!' );
 
 //crazyColors and crazyColors2 will return thesame output!
+
+
+
+/** Understanding "this" and Arrow Functions  
+ * 
+ * 
+ * With regular functions, the value of "this" is set based on how the function is called. 
+ * With arrow functions, the value of "this" is based on the function's surrounding context (where the function is located in the code). In other words, the value of this inside an arrow function is the same as the value of this outside the function.
+*/
+
+// constructor
+function IceCream() {
+    this.scoops = 0;
+  }
+  
+  // adds scoop to ice cream
+  IceCream.prototype.addScoop = function() {
+    setTimeout(function() {
+      this.scoops++; //scoops will be undefined by default, when new IceCream object is called
+      console.log(`scoop added! ${this.scoops}`);
+    }, 500);
+  };
+  
+  const dessert = new IceCream();
+  dessert.addScoop();  // scoop added! NaN
+  console.log(dessert.scoops) // 0
+  //So what actually happened above was that a new scoops variable was created (with a default value of undefined) and was then incremented (undefined + 1 results in NaN)
+  //That means the value of this inside the function is the global object and NOT the dessert object.
+
+//To work around this
+function IceCreamWithCone() {
+    this.scoops = 0;
+}
+
+IceCreamWithCone.prototype.addScoop = function() {
+    const cone = this; // the value `this` globally outside of the function which is 0 is set to the `cone` variable
+    setTimeout(function() {
+      cone.scoops++; // references the `cone` variable
+      console.log(`scoop added! ${cone.scoops}`);
+    }, 0.5);
+};
+
+const dessert2 = new IceCreamWithCone();
+dessert2.addScoop(); // scoop added! 1
+
+
+//The idea of the work around above is how arrow functions handles `this` . So the value of this inside the function is based on the surrounding context
+function IceCreamArrow() {
+    this.scoops = 0;
+}
+
+IceCreamArrow.prototype.addScoop = function() { // addScoop is now an arrow function
+  setTimeout(() => { // an arrow function is passed to setTimeout
+    this.scoops++; 
+    console.log(`scoop added! ${this.scoops}`);
+  }, 0.5);
+};
+
+
+const dessert3 = new IceCreamArrow();
+dessert3.addScoop(); // scoop added! 1
+
+
+/**End Understanding "this" and Arrow functions */
