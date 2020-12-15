@@ -58,7 +58,7 @@ myFavoriteFlavors.delete('strawberry') //strawberry was already removed. So noth
 
 //myFavoriteFlavors.clear()  this will empty the set {}
 
-myFavoriteFlavors.size()   //will check for the length of the set
+myFavoriteFlavors.size   //will check for the length of the set
 
 myFavoriteFlavors.has('cookies and cream')  //true
 
@@ -67,3 +67,23 @@ for (const flavor of myFavoriteFlavors) {  //prints all the set
   }
 
 
+
+/**Understanding weak sets */
+
+let flavor1 = {flavor: 'chocolate'}
+let flavor2 = {flavor: 'ogbono'}
+
+const uniqueFlavors = new WeakSet()
+uniqueFlavors.add(flavor1)
+uniqueFlavors.add(flavor2)
+console.log(uniqueFlavors)
+
+uniqueFlavors.add(flavor1)
+console.log(uniqueFlavors)
+
+
+//WeakSets take advantage of this by exclusively working with objects. If you set an object to null, then you’re essentially deleting the object. And when JavaScript’s garbage collector runs, the memory that object previously occupied will be freed up to be used later in your program.
+flavor2 = null;
+console.log(uniqueFlavors);  //WeakSet {Object {flavor: 'ogbono'}}
+
+/**End Understanding weak sets */
