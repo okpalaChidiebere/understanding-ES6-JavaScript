@@ -204,3 +204,41 @@ console.log(typeof Plane) // function
 //FYI: Javascript is not a class baded language. It uses functions to create objects and links objects together throgh prototypal inheriance
 //Just because ES6 provides us with new keyworkds like class, constructor, super, static, and extends does not mean the way the language entirely works has changed.
 //We just have have a new cleaner way to write functionality using the new keywords
+
+
+/**
+ * Create a Bicycle subclass that extends the Vehicle class. 
+ * The Bicycle subclass should override Vehicle's constructor function by 
+ * changing the default values for wheels from 4 to 2 and horn from 'beep beep' to 'honk honk'.
+ */
+
+class Vehicle {
+	constructor(color = 'blue', wheels = 4, horn = 'beep beep') {
+		this.color = color;
+		this.wheels = wheels;
+		this.horn = horn;
+	}
+
+	honkHorn() {
+		console.log(this.horn);
+	}
+}
+
+class Bicycle extends Vehicle {
+    constructor(color, wheels = 2, horn = 'honk honk'){
+        super(color, wheels, horn); //super must be called before this
+        //i can add new data for this Bicyle class eg this.brand then add a new paramter to initilize this data from the constructor or have a default value
+    }
+}
+
+// tests
+const myVehicle = new Vehicle();
+myVehicle.honkHorn(); // beep beep
+const myBike = new Bicycle();
+myBike.honkHorn(); // honk honk
+
+/**
+ * NOTES:
+ * 
+ * Like most of the new additions in ES6, there's a lot less setup code and it's a lot cleaner syntax to create a subclass using class, super, and extends.
+ */
