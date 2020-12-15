@@ -25,3 +25,45 @@ console.log(bowl2); //Object {Symbol(apple): Object, Symbol(banana): Object, Sym
 //each property is a unique Symbol and the first banana doesn’t get overwritten by the second banana.
 
 /** ENd Understanding Symbols */
+
+
+/**Understanding sets
+ * 
+ * A Set is an object that lets you store unique items
+ * You can add items to a Set, remove items from a Set, and loop over a Set. These items can be either primitive values or objects.
+
+
+ * 
+ * The biggest differences between a set and an array are:
+
+- Sets are not indexed-based - you do not refer to items in a set based on their position in the set
+- items in a Set can’t be accessed individually
+
+ */
+
+
+const myFavoriteFlavors = new Set()
+myFavoriteFlavors.add('chocolate chip')
+myFavoriteFlavors.add('cookies and cream')
+myFavoriteFlavors.add('strawberry')
+myFavoriteFlavors.add('vanilla')
+console.log(myFavoriteFlavors) // {"chocolate chip", "cookies and cream", "strawberry", "vanilla"}
+
+myFavoriteFlavors.delete('strawberry')
+console.log(myFavoriteFlavors) // {"chocolate chip", "cookies and cream", "vanilla"} 
+
+
+myFavoriteFlavors.add('chocolate chip') //it will not throw any error, but it will not be adde, bcause the values of in set but be unique
+myFavoriteFlavors.delete('strawberry') //strawberry was already removed. So nothing will work. Howvever, no error will be thrown
+
+//myFavoriteFlavors.clear()  this will empty the set {}
+
+myFavoriteFlavors.size()   //will check for the length of the set
+
+myFavoriteFlavors.has('cookies and cream')  //true
+
+for (const flavor of myFavoriteFlavors) {  //prints all the set
+    console.log(flavor);
+  }
+
+
