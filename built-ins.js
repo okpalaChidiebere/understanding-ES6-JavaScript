@@ -87,3 +87,49 @@ flavor2 = null;
 console.log(uniqueFlavors);  //WeakSet {Object {flavor: 'ogbono'}}
 
 /**End Understanding weak sets */
+
+
+/** Understand Maps and WeakMaps
+ * 
+ * Maps and WaekMaps share a lot of thing in comon with Sets and Weak Sets.
+ * They both have similar properties and methods
+ * WeakSets and WeakMaps dont prevent objects from being garbage collected
+ * Maps are collection of key-value paris while Sets are collection of unique values
+ * Maps are to objects as Sets are to arrays
+ */
+
+
+const members = new Map();
+
+members.set('Evelyn', 75.68);
+members.set('Liam', 20.16);
+members.set('Sophia', 0);
+members.set('Marcus', 10.25);
+
+for (const [key, value] of members) { //with array destructuring, the key-value pair is split up into an array where the first element is the key and the second element is the value.
+    console.log(key, value)  //Evelyn 75.68 \n Liam 20.16 \n Sophia 0 \n Marcus 10.25
+
+}
+
+for (const member of members) {  //when you use a for...of loop with a Map, you don’t exactly get back a key or a value
+    console.log(member);  //['Evelyn', 75.68] ['Liam', 20.16] ['Sophia', 0] ['Marcus', 10.25]
+}
+
+
+//one things you notice, you dont have to call the map function that is built in to loop through Maps. You have to use foor...of loop, forEach...loop or iterator
+
+const book1 = { title: 'Pride and Prejudice', author: 'Jane Austen' };
+const book2 = { title: 'The Catcher in the Rye', author: 'J.D. Salinger' };
+
+const library = new WeakMap();
+library.set(book1, true);
+library.set(book2, false);
+console.log(library); //WeakMap {Object {title: 'Pride and Prejudice', author: 'Jane Austen'} => true, Object {title: 'The Catcher in the Rye', author: 'J.D. Salinger'} => false}
+
+library.set('The Grapes of Wrath', false); // you get an error because you try to add something other than an object as a key, you’ll get an error!
+
+
+/**End Understanding Maps and WeakMaps */
+
+
+
