@@ -242,5 +242,7 @@ proxyObj.weight; // logs 'getting the weight property' & 120
 //So some functionality of proxy objects may seem similar to existing ES5 getter/setter methods. 
 //But with proxies, you do not need to initialize the object with getters/setters for each property when the object is initialized.
 
+//Proxy Recap
+//recap
 
 
