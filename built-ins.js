@@ -126,10 +126,72 @@ library.set(book1, true);
 library.set(book2, false);
 console.log(library); //WeakMap {Object {title: 'Pride and Prejudice', author: 'Jane Austen'} => true, Object {title: 'The Catcher in the Rye', author: 'J.D. Salinger'} => false}
 
-library.set('The Grapes of Wrath', false); // you get an error because you try to add something other than an object as a key, you’ll get an error!
+//library.set('The Grapes of Wrath', false); // you get an error because you try to add something other than an object as a key, you’ll get an error!
 
 
 /**End Understanding Maps and WeakMaps */
 
 
+/** UnderStanding Proxy
+ * 
+ * Doing ES6 are JavaScript Proxies
+ * 
+ * A JavScript Proxy will let one object stand in for another object to handle all the interactions for that other object. The Proxy can handle data directly, 
+ * pass data back and forth to the target object and a whole bunch of other things
+ */
 
+//A simple Proxy. It is simple because the handle (passed in the second parameter) is empty
+//you simple has to use the proxy constructor new Proxy(). It takes in two parameters
+// - the object that it will be the proxy for
+//- an object containing the list of methods it will handle for the proxied object.  If we want the proxy object to actually intercept the request, 
+//that's what the handler object is for!
+const richard = {status: 'looking for work'};
+const agent = new Proxy(richard, {});
+console.log(agent.status) //looking for work
+
+
+/* */
+const ben = {status: 'looking for work'};
+const handler = {
+    //this get method is called a 'trap' because it is used in a proxy. This method will intercept the call to ben 
+    get(target, propName) {
+        console.log(target); // this log the `ben` object, which is the main target in the call
+        console.log(propName); // logs out the name of the property being requested `status`. The name of the property the proxy (`benAgent` in this case) is checking
+    }
+};
+const benAgent = new Proxy(ben, handler);
+console.log(benAgent.status); //`{status: "looking for work"}` `status` `undefined`
+// the logs target and propName but finally logs benAgent.status as undefined because your trap function did not return anything. 
+//Ideally you want to return a property value or a value place of the propery value
+//take a look at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy
+//or  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/get
+
+
+/**Having the proxy return info, directly*/
+const chidi = {status: 'looking for work'};
+const chidiHandler = {
+    //we could use the proxy to provide direct feedback. Ideally the get trap should just return property or something. 
+    //If we want to intercept calls to change properties, then the set trap needs to be used!
+    get(target, propName) {
+        return `He's following many leads, so you should offer a contract as soon as possible!`;
+    },
+};
+const chidiAgent = new Proxy(chidi, chidiHandler);
+console.log(chidiAgent.status); // returns the text `He's following many leads, so you should offer a contract as soon as possible!`
+const chidiSetPayHandler = {
+    set(target, propName, value) {
+      if (propName === 'payRate') { // if the pay is being set, take 15% as commission
+          value = value * 0.85;
+      }
+      target[propName] = value;
+      return true;
+    }
+};
+const chidiSetPayAgent = new Proxy(chidi, chidiSetPayHandler);
+chidiSetPayAgent.payRate = 1000; // set the actor's pay to $1,000
+console.log(chidiSetPayAgent.payRate); // $850 the actor's actual pay
+
+//For many more handlers, you can check out 
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy
+
+/** End Understanding Proxy */
