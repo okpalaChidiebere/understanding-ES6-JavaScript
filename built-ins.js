@@ -246,3 +246,182 @@ proxyObj.weight; // logs 'getting the weight property' & 120
 //recap
 
 
+/** Understanding Generators
+
+
+*/
+
+
+/** End Understanding Generators */
+
+//THE PROBLEM
+/*
+Whenever a function is invoked, the JavaScript engine starts at the top of the function and runs every line of code until it 
+gets to the bottom. There's no way to stop the execution of the function in the middle and pick up again at some later point. 
+This "run-to-completion" is the way it's always been:
+*/
+function getEmployee() {
+  console.log('the function has started');
+
+  const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+  for (const name of names) {
+      console.log(name);
+  }
+
+  console.log('the function has ended');
+}
+
+//getEmployee(); //prints the whole list!
+/*
+Running the code above produces the following output on the console:
+
+the function has started
+Amanda
+Diego
+Farrin
+James
+Kagure
+Kavita
+Orit
+Richard
+the function has ended
+
+
+But what if you want to print out the first 3 employee names then stop for a bit, 
+then, at some later point, you want to continue where you left off and print out 
+more employee names. With a regular function, you can't do this since there's no way 
+to "pause" a function in the middle of its execution.
+*/
+
+//THE SOLUTION is to have a Pausable function. This is where Generators in ES6 comes in
+
+function* getEmployees() { //Notice the asterisk (i.e. *) right after the function keyword? That asterisk indicates that this function is actually a generator!
+  console.log('the function has started');
+
+  const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+  for (const name of names) {
+      console.log( name );
+  }
+
+  console.log('the function has ended');
+}
+/*
+The asterisk of the generator can actually be placed anywhere between the function keyword 
+and the function's name. 
+The community has coalesced into having the asterisk appear right next to the function keyword (i.e. function* name() { … }). 
+But there others that recommend having the asterisk touch the function's name instead. (i.e. function *name() { … })
+*/
+
+getEmployees() //does not do anything. We did not get any list back
+
+const generatorIterator = getEmployees();
+generatorIterator.next(); //prints out what we expect. The whole list right away just like getEmployee()
+
+
+function *getEmployeePauseFunction() {
+  console.log('the function has started');
+
+  const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+
+  for (const name of names) {
+      console.log(name);
+      yield; //can only be used inside a a generator function
+  }
+
+  console.log('the function has ended');
+}
+
+
+const generatorIterator2 = getEmployeePauseFunction();
+//generatorIterator2.next(); //logs: the function has started & Amanda
+//generatorIterator2.next(); //logs: diego
+
+
+//Ideally you will use it this way
+const generatorIteratorMain = getEmployeePauseFunction();
+let result = generatorIteratorMain.next(); //this just starts the generator and dont return the first value. you have call .value if you want Amanda in this line
+result.value // is "Amanda" 
+generatorIteratorMain.next().value // is "Diego"
+generatorIteratorMain.next().value // is "Farrin"
+
+//for that function to fully execute and exit the function, .next() will be called about 8 times(size of the array). If we add yeild beside the logs then .next(0) will have to be called 10 times
+
+
+//Sending Data into/out of a Generator
+function* displayResponse() {
+  const response = yield; 
+  console.log(`Your response is "${response}"!`);
+}
+
+const iterator = displayResponse();
+
+iterator.next(); // starts running the generator function
+iterator.next('Hello Udacity Student'); // send data into the generator
+// the line above logs to the console: Your response is "Hello Udacity Student"!
+
+/*
+The yield keyword is used to pause a generator and then can used to send data outside of the generator
+the .next() method is used to pass data into the generator */
+function* getEmployeeTest() {
+  const names = ['Amanda', 'Diego', 'Farrin', 'James', 'Kagure', 'Kavita', 'Orit', 'Richard'];
+  const facts = [];
+
+  for (const name of names) {
+      // yield *out* each name AND store the returned data into the facts array
+      facts.push(yield name); 
+  }
+
+  return facts;
+}
+
+const generatorIterator4 = getEmployeeTest();
+
+// get the first name out of the generator
+let tempName = generatorIterator4.next().value;
+
+// pass data in *and* get the next name
+tempName = generatorIterator4.next(`${tempName} is cool!`).value; 
+
+// pass data in *and* get the next name
+tempName = generatorIterator4.next(`${tempName} is awesome!`).value; 
+
+// pass data in *and* get the next name
+tempName = generatorIterator4.next(`${tempName} is stupendous!`).value; 
+
+// you get the idea
+tempName = generatorIterator4.next(`${tempName} is rad!`).value; 
+tempName = generatorIterator4.next(`${tempName} is impressive!`).value;
+tempName = generatorIterator4.next(`${tempName} is stunning!`).value;
+tempName = generatorIterator4.next(`${tempName} is awe-inspiring!`).value;
+
+// pass the last data in, generator ends and returns the array
+const positions = generatorIterator4.next(`${tempName} is magnificent!`).value; 
+
+// displays each name with description on its own line
+positions.join('\n'); 
+console.log(positions) //["Amanda is cool!", "Diego is awesome!", "Farrin is stupendous!", "James is rad!", "Kagure is impressive!", "Kavita is stunning!", "Orit is awe-inspiring!", "Richard is magnificent!"]
+
+
+/*
+In the code below
+the first call to .next() passes in some data. But that data doesn't get stored anywhere. 
+The last call to .next() should have some data since it's being yielded into the last call 
+to toppings.push().
+ */
+function* createSundae() {
+  const toppings = [];
+
+  toppings.push(yield);
+  toppings.push(yield);
+  toppings.push(yield);
+
+  return toppings;
+}
+
+var it = createSundae();
+it.next('hot fudge');
+it.next('sprinkles');
+it.next('whipped cream');
+it.next();
