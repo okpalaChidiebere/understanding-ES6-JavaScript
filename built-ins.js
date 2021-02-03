@@ -195,3 +195,52 @@ console.log(chidiSetPayAgent.payRate); // $850 the actor's actual pay
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy
 
 /** End Understanding Proxy */
+
+/** Why you will want to use Proxies
+ * 
+ * Proxies vs. ES5 Getter/Setter
+ */
+
+ //You already know this
+ var obj = {
+  _age: 5,
+  _height: 4,
+  get age() {
+      console.log(`getting the "age" property`);
+      console.log(this._age);
+  },
+  get height() {
+      console.log(`getting the "height" property`);
+      console.log(this._height);
+  }
+};
+//watch the log result closely
+obj.age; // logs 'getting the "age" property' & 5
+obj.height; // logs 'getting the "height" property' & 4
+//But look what happens when we now add a new property to the object:
+obj.weight = 120; // set a new property on the object
+obj.weight; // logs just 120
+//Notice that a `getting the "weight" property` message wasn't displayed like the `age` and `height` properties produced.
+
+
+//With ES6 Proxies, we do not need to know the properties beforehand:
+
+const proxyObj = new Proxy({age: 5, height: 4}, {
+  get(targetObj, property) {
+      console.log(`getting the ${property} property`);
+      console.log(targetObj[property]);
+  }
+});
+
+proxyObj.age; // logs 'getting the age property' & 5
+proxyObj.height; // logs 'getting the height property' & 4
+//All well and good, just like the ES5 code, but look what happens when we add a new property:
+proxyObj.weight = 120; // set a new property on the object
+proxyObj.weight; // logs 'getting the weight property' & 120
+//A weight property was added to the proxy object, and when it was later retrieved, it displayed a log message!
+
+//So some functionality of proxy objects may seem similar to existing ES5 getter/setter methods. 
+//But with proxies, you do not need to initialize the object with getters/setters for each property when the object is initialized.
+
+
+
